@@ -6,12 +6,17 @@ How to decide who handles what.
 
 | Work Type | Route To | Examples |
 |-----------|----------|----------|
-| {domain 1} | {Name} | {example tasks} |
-| {domain 2} | {Name} | {example tasks} |
-| {domain 3} | {Name} | {example tasks} |
-| Code review | {Name} | Review PRs, check quality, suggest improvements |
-| Testing | {Name} | Write tests, find edge cases, verify fixes |
-| Scope & priorities | {Name} | What to build next, trade-offs, decisions |
+| TypeScript implementation | McNulty | Scripts, utilities, parsers, CLI entry points, build config, output generation |
+| Content source discovery | Kima | Blog/RSS scraping, YouTube API, podcast feeds, conference listings |
+| Community source discovery | Bunk | GitHub search, Reddit queries, social media capture, discussion mining |
+| Taxonomy & deduplication | Bubbles | Classification rules, dedupe logic, canonical IDs, watchlist, ledger schema |
+| Signal analysis & trends | Omar | Trend reports, sentiment, gap analysis, amplification copy, metrics |
+| Copilot SDK integration | Daniels | Copilot extensions, tool definitions, workflow automation |
+| Squad SDK orchestration | Stringer | Pipeline design, skill architecture, agent handoffs, execution flow |
+| Architecture & scope | Freamon | Design decisions, report quality, taxonomy governance, action recs |
+| Code review | Freamon | Review PRs, check quality, approve merges |
+| Testing | McNulty + Omar | McNulty writes test code, Omar validates analysis logic |
+| Report assembly | Freamon + Omar | Freamon owns quality, Omar contributes analysis sections |
 | Async issue work (bugs, tests, small features) | @copilot 🤖 | Well-defined tasks matching capability profile |
 | Session logging | Scribe | Automatic — never needs routing |
 

@@ -1,0 +1,21 @@
+{
+  "version": "1.0.0",
+  "assignments": [
+    {
+      "assignment_id": "acces-init-2026-03-05",
+      "universe": "The Wire",
+      "created_at": "2026-03-05T07:34:34.064Z",
+      "agents": [
+        { "name": "Freamon", "role": "Lead / Editor-in-Chief" },
+        { "name": "McNulty", "role": "TypeScript Implementer" },
+        { "name": "Kima", "role": "Source Scout (Content)" },
+        { "name": "Bunk", "role": "Source Scout (Community)" },
+        { "name": "Omar", "role": "Signal Analyst" },
+        { "name": "Bubbles", "role": "Taxonomy + Dedupe Librarian" },
+        { "name": "Daniels", "role": "Copilot SDK Specialist" },
+        { "name": "Stringer", "role": "Squad SDK Orchestrator" }
+      ],
+      "reason": "Content discovery is detective work — The Wire's investigative theme resonates with scouting sources, building cases from evidence, and connecting community intelligence."
+    }
+  ]
+}

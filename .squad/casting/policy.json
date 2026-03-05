@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0",
+  "allowlistUniverses": [
+    "The Usual Suspects",
+    "Breaking Bad",
+    "The Wire",
+    "Firefly"
+  ],
+  "overflowStrategy": "generic",
+  "universeCapacity": {
+    "The Usual Suspects": 6,
+    "Breaking Bad": 15,
+    "The Wire": 20,
+    "Firefly": 10
+  }
+}

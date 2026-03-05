@@ -1,8 +1,11 @@
 import type { SquadConfig } from '@bradygaster/squad';
 
 /**
- * Squad Configuration for Acces
+ * Squad Configuration for ACCES
+ * Aspire Community Content Engine Squad
  * 
+ * Team: The Wire universe
+ * Customer: Beth Massi
  */
 const config: SquadConfig = {
   version: '1.0.0',
@@ -28,22 +31,44 @@ const config: SquadConfig = {
     rules: [
       {
         workType: 'feature-dev',
-        agents: ['@scribe'],
+        agents: ['@mcnulty'],
+        examples: ['TypeScript implementation', 'build scripts', 'CLI entry points', 'output generation'],
         confidence: 'high'
       },
       {
-        workType: 'bug-fix',
-        agents: ['@scribe'],
+        workType: 'architecture',
+        agents: ['@freamon'],
+        examples: ['design decisions', 'report structure', 'pipeline architecture', 'scope decisions'],
+        confidence: 'high'
+      },
+      {
+        workType: 'research',
+        agents: ['@kima', '@bunk'],
+        examples: ['source discovery', 'content scouting', 'community monitoring', 'API research'],
         confidence: 'high'
       },
       {
         workType: 'testing',
-        agents: ['@scribe'],
+        agents: ['@mcnulty'],
+        examples: ['unit tests', 'integration tests', 'output validation'],
         confidence: 'high'
       },
       {
         workType: 'documentation',
-        agents: ['@scribe'],
+        agents: ['@freamon'],
+        examples: ['README updates', 'report formatting', 'taxonomy docs'],
+        confidence: 'high'
+      },
+      {
+        workType: 'refactoring',
+        agents: ['@mcnulty'],
+        examples: ['code cleanup', 'type improvements', 'pipeline optimization'],
+        confidence: 'high'
+      },
+      {
+        workType: 'triage',
+        agents: ['@freamon'],
+        examples: ['issue triage', 'priority assessment', 'scope evaluation'],
         confidence: 'high'
       }
     ],
@@ -62,7 +87,12 @@ const config: SquadConfig = {
       'Firefly'
     ],
     overflowStrategy: 'generic',
-    universeCapacity: {}
+    universeCapacity: {
+      'The Usual Suspects': 6,
+      'Breaking Bad': 15,
+      'The Wire': 20,
+      'Firefly': 10
+    }
   },
   
   platforms: {
