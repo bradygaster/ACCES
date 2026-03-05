@@ -1,4 +1,11 @@
 {
   "version": 1,
-  "teamRoot": "C:\\src\\Acces"
+  "teamRoot": "C:\\src\\Acces",
+  "places": {
+    "url": "https://api.nicebeach-b92b0c14.eastus.azurecontainerapps.io",
+    "uiUrl": "https://web.nicebeach-b92b0c14.eastus.azurecontainerapps.io",
+    "squadId": "9c583e65-11b7-458c-95e0-cb44e1c88625",
+    "squadName": "The Wire",
+    "enabled": true
+  }
 }
