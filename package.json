@@ -1,0 +1,28 @@
+{
+  "name": "@bradygaster/acces",
+  "version": "0.1.0",
+  "description": "Aspire Community Content Engine Squad — discovers, dedupes, classifies, and reports on Aspire community content",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "build": "tsc",
+    "dev": "tsx watch src/index.ts"
+  },
+  "keywords": [
+    "aspire",
+    "community",
+    "content-engine"
+  ],
+  "author": "bradygaster",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^25.3.3",
+    "tsx": "^4.19.0",
+    "typescript": "^5.8.0"
+  },
+  "dependencies": {
+    "@octokit/rest": "^21.1.0",
+    "rss-parser": "^3.13.0"
+  }
+}

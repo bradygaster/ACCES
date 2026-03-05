@@ -1,3 +1,10 @@
 # Squad: ignore generated logs
 .squad/orchestration-log/
 .squad/log/
+
+# Node / TypeScript
+node_modules/
+dist/
+
+# ACCES engine output data
+AspireContentEngine/
