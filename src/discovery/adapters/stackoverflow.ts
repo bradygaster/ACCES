@@ -109,9 +109,21 @@ export class StackOverflowSourceAdapter implements SourceAdapter {
   }
 
   private async decompressResponse(response: Response): Promise<StackOverflowResponse> {
-    const buffer = await response.arrayBuffer();
-    const decompressed = gunzipSync(Buffer.from(buffer));
-    return JSON.parse(decompressed.toString('utf-8'));
+    const buffer = Buffer.from(await response.arrayBuffer());
+    const encoding = response.headers.get('content-encoding');
+
+    if (encoding === 'gzip') {
+      const decompressed = gunzipSync(buffer);
+      return JSON.parse(decompressed.toString('utf-8'));
+    }
+
+    // Try gzip first (SE API sometimes sends gzip without header), fall back to plain JSON
+    try {
+      const decompressed = gunzipSync(buffer);
+      return JSON.parse(decompressed.toString('utf-8'));
+    } catch {
+      return JSON.parse(buffer.toString('utf-8'));
+    }
   }
 
   private mapToContentItem(item: StackOverflowQuestion, tag: string): ContentItem {

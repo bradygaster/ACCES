@@ -53,6 +53,13 @@ export class DevToSourceAdapter implements SourceAdapter {
           
           const response = await fetch(url);
           if (!response.ok) {
+            if (response.status === 429) {
+              const retryAfter = response.headers.get('retry-after');
+              const waitMs = retryAfter ? parseInt(retryAfter, 10) * 1000 : 60_000;
+              console.warn(`  ⏳ Dev.to rate limited, waiting ${waitMs / 1000}s`);
+              await sleep(waitMs);
+              continue;
+            }
             console.warn(`  ⚠️  Dev.to API error for tag ${tag} page ${page}: ${response.status}`);
             break;
           }

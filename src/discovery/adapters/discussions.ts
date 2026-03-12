@@ -159,7 +159,13 @@ export class GitHubDiscussionsSourceAdapter implements SourceAdapter {
           ...variables,
         });
 
-        const data = response.data as GraphQLResponse;
+        const responseData = response.data as { data?: GraphQLResponse; errors?: Array<{ message: string }> };
+
+        if (responseData.errors) {
+          throw new Error(`GraphQL errors: ${responseData.errors.map(e => e.message).join(', ')}`);
+        }
+
+        const data = (responseData.data ?? responseData) as GraphQLResponse;
         const discussions = data.repository.discussions;
 
         // Filter by date
