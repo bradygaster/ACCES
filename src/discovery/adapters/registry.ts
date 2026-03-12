@@ -50,41 +50,44 @@ export class SourceRegistry {
 
     const validations = await this.validateAll();
 
-    const promises = Array.from(this.adapters.entries()).map(async ([name, adapter]) => {
+    // Skip invalid adapters before execution
+    const validAdapters: [string, SourceAdapter][] = [];
+    for (const [name, adapter] of this.adapters.entries()) {
       const validation = validations.get(name);
       if (!validation || !validation.valid) {
         skipped.push(name);
         console.log(`  ⏭️  Skipping ${adapter.displayName}: ${validation?.reason ?? 'validation failed'}`);
-        return null;
+        continue;
       }
-
       if (validation.warnings && validation.warnings.length > 0) {
         for (const warning of validation.warnings) {
           console.log(`  ⚠️  ${adapter.displayName}: ${warning}`);
         }
       }
+      validAdapters.push([name, adapter]);
+    }
 
-      const start = Date.now();
-      try {
-        const results = await adapter.discover(state);
-        const elapsed = Date.now() - start;
-        timing.set(name, elapsed);
-        return { name, results };
-      } catch (err) {
-        const elapsed = Date.now() - start;
-        timing.set(name, elapsed);
-        const error = err instanceof Error ? err : new Error(String(err));
-        errors.set(name, error);
-        console.error(`  ❌ ${adapter.displayName} failed: ${error.message}`);
-        return null;
-      }
+    // Execute valid adapters in parallel — Promise.allSettled handles isolation
+    const startTimes = new Map<string, number>();
+    const promises = validAdapters.map(([name, adapter]) => {
+      startTimes.set(name, Date.now());
+      return adapter.discover(state).then(results => ({ name, results }));
     });
 
     const settled = await Promise.allSettled(promises);
 
-    for (const result of settled) {
-      if (result.status === 'fulfilled' && result.value) {
+    for (let i = 0; i < settled.length; i++) {
+      const result = settled[i];
+      const [name, adapter] = validAdapters[i];
+      const elapsed = Date.now() - (startTimes.get(name) ?? Date.now());
+      timing.set(name, elapsed);
+
+      if (result.status === 'fulfilled') {
         allResults.push(...result.value.results);
+      } else {
+        const error = result.reason instanceof Error ? result.reason : new Error(String(result.reason));
+        errors.set(name, error);
+        console.error(`  ❌ ${adapter.displayName} failed: ${error.message}`);
       }
     }
 

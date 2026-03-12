@@ -26,6 +26,7 @@ export type ContentType =
 
 /** Discovery channel — known values plus open string for future channels */
 export type Channel =
+  | 'rss'
   | 'youtube'
   | 'github'
   | 'reddit'
@@ -37,6 +38,8 @@ export type Channel =
   | 'X'
   | 'bluesky'
   | 'linkedin'
+  | 'stackoverflow'
+  | 'podcast'
   | (string & {});
 
 /** Target audience for the content */
