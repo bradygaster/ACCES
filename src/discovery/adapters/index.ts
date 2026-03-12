@@ -12,6 +12,8 @@ export { RedditSourceAdapter } from './reddit.js';
 export { DevToSourceAdapter } from './devto.js';
 export { StackOverflowSourceAdapter } from './stackoverflow.js';
 export { GitHubDiscussionsSourceAdapter } from './discussions.js';
+export { YouTubeSourceAdapter } from './youtube.js';
+export { PodcastSourceAdapter } from './podcast.js';
 
 import { SourceRegistry } from './registry.js';
 import { RSSSourceAdapter } from './rss.js';
@@ -20,6 +22,8 @@ import { RedditSourceAdapter } from './reddit.js';
 import { DevToSourceAdapter } from './devto.js';
 import { StackOverflowSourceAdapter } from './stackoverflow.js';
 import { GitHubDiscussionsSourceAdapter } from './discussions.js';
+import { YouTubeSourceAdapter } from './youtube.js';
+import { PodcastSourceAdapter } from './podcast.js';
 
 export function createDefaultRegistry(): SourceRegistry {
   const registry = new SourceRegistry();
@@ -29,5 +33,7 @@ export function createDefaultRegistry(): SourceRegistry {
   registry.register(new DevToSourceAdapter());
   registry.register(new StackOverflowSourceAdapter());
   registry.register(new GitHubDiscussionsSourceAdapter());
+  registry.register(new YouTubeSourceAdapter());
+  registry.register(new PodcastSourceAdapter());
   return registry;
 }
