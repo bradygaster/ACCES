@@ -8,12 +8,11 @@
 import { mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { loadState, saveState } from './state.js';
-import { discoverContent } from './discovery/content.js';
-import { discoverCommunity } from './discovery/community.js';
+import { createDefaultRegistry } from './discovery/adapters/index.js';
 import { classify, deduplicate } from './taxonomy.js';
 import { analyze } from './analysis.js';
 import { generateOutput } from './output.js';
-import type { ContentItem, RunOutput } from './types.js';
+import type { ContentItem, DiscoveryResult, RunOutput } from './types.js';
 
 /**
  * Format a Date as YYYY-MM-DD_HH-mm-ss for output folder names.
@@ -57,37 +56,25 @@ async function main(): Promise<void> {
 
   // ── Step 2: Discover ────────────────────────────────────────────────
   console.log('🔍 Discovering content...');
+  const registry = createDefaultRegistry();
+  const registryResult = await registry.discoverAll(state);
+
   const allItems: ContentItem[] = [];
-  let discoveryErrors = 0;
-
-  try {
-    const contentResults = await discoverContent(state);
-    for (const result of contentResults) {
-      console.log(`  ✅ ${result.source}: ${result.items.length} items`);
-      allItems.push(...result.items);
-    }
-  } catch (err) {
-    discoveryErrors++;
-    const message = err instanceof Error ? err.message : String(err);
-    console.error(`  ❌ Content discovery failed: ${message}`);
-  }
-
-  try {
-    const communityResults = await discoverCommunity(state);
-    for (const result of communityResults) {
-      console.log(`  ✅ ${result.source}: ${result.items.length} items`);
-      allItems.push(...result.items);
-    }
-  } catch (err) {
-    discoveryErrors++;
-    const message = err instanceof Error ? err.message : String(err);
-    console.error(`  ❌ Community discovery failed: ${message}`);
+  for (const result of registryResult.results) {
+    console.log(`  ✅ ${result.source}: ${result.items.length} items`);
+    allItems.push(...result.items);
   }
 
   console.log(`  📋 Total raw items: ${allItems.length}`);
-  if (discoveryErrors > 0) {
-    console.log(`  ⚠️  ${discoveryErrors} discovery source(s) had errors`);
+  
+  if (registryResult.skipped.length > 0) {
+    console.log(`  ⏭️  Skipped: ${registryResult.skipped.join(', ')}`);
   }
+  
+  if (registryResult.errors.size > 0) {
+    console.log(`  ⚠️  ${registryResult.errors.size} adapter(s) had errors`);
+  }
+  
   console.log('');
 
   // ── Step 3: Deduplicate ─────────────────────────────────────────────

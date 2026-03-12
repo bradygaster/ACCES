@@ -41,3 +41,26 @@
 **Content discovery (Kima):** RSS expansion + YouTube + podcasts gives 85%+ blog coverage. Multi-source deduplication strategy (sha256 canonical IDs) scales to 20+ sources.
 
 **Squad consensus:** Refactor first (2.5 sessions), then Phase 1 (2-3 sessions). This gives Brady technical debt cleanup + Beth immediate editorial ROI. Phase 2 & 3 follow after Phase 1 validation.
+
+#### PRD Authoring Session (2026-03-12)
+
+**Issues filed:** 7 GitHub PRDs on bradygaster/ACCES (issues #1-#7), all labeled `squad`
+- **Issue #1:** Architecture Refactor (McNulty + Stringer, 2.5 sessions) — foundation for all adapters
+- **Issues #2-#5:** Phase 1 adapters (Reddit, Dev.to, Stack Overflow, GitHub Discussions) — 3.5 sessions total
+- **Issues #6-#7:** Phase 2 adapters (YouTube, Podcasts) — 2.5 sessions total
+
+**PRD structure used:**
+- Overview (what + why for Beth)
+- Background (gap analysis context)
+- Requirements (implementation checklist)
+- Squad SDK Integration (adapter patterns)
+- Acceptance Criteria (testable outcomes)
+- Dependencies (issue blocking relationships)
+- Assigned To (squad member ownership)
+- Estimated Effort (session count)
+
+**Dependency chain:** Issue #1 blocks all others. Phase 1 issues (#2-#5) can parallelize after #1. Phase 2 issues (#6-#7) follow Phase 1 validation.
+
+**Key learning:** GitHub CLI required account switch (`gh auth switch --user bradygaster`) when working with personal repos while logged into Enterprise Managed User account. All issues created successfully after switch.
+
+**Deliverable:** Summary written to `.squad/decisions/inbox/freamon-prd-issues.md` for Ralph's triage.

@@ -21,3 +21,8 @@
 - Pipeline flow: loadState → discoverContent + discoverCommunity → deduplicate → classify → analyze → generateOutput → saveState
 - Canonical ID = sha256(title|url|author|date).slice(0,16)
 - The `Channel` type uses `(string & {})` pattern to allow known unions + arbitrary strings
+- `generateCanonicalId` is duplicated in `content.ts` (line 214) and `taxonomy.ts` (line 88) — must consolidate during SourceAdapter refactor
+- `truncate` helper is duplicated in `content.ts` and `community.ts` — consolidate into shared helpers module
+- Skeleton discovery functions (blog search, YouTube, Reddit, social media) all return `[]` — safe to remove during adapter extraction
+- Enterprise Managed User (EMU) GitHub account can't use GraphQL for issue comments — use `gh issue comment --body-file` with REST API instead
+- Produced implementation plan for Issue #1 (SourceAdapter pattern) — posted to https://github.com/bradygaster/ACCES/issues/1#issuecomment-4045230035 and `.squad/decisions/inbox/mcnulty-issue1-plan.md`
